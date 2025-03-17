@@ -14,22 +14,27 @@ public class Conductor {
     @Column
     private String apellido;
     @Column
-    private LocalDate fechaDeNacimiento;// AA-MM-DD-fecha actual-adadde la persona
+    private Integer edad;
     @Column
     private String automovil;
-    @Enumerated(EnumTipe.STRIG)
-    private TipoAutomovil tipoAutomovil
+    @Enumerated(EnumType.STRING)
+    private TipoAutomovil tipoAutomovil;
     //Es de uno a uno
+    @OneToOne(mappedBy = "conductor", cascade = CascadeType.ALL)
+    private Viaje viaje; 
+    private boolean estado = true;// Agregado por defecto en true
 
     // Constructor vacío
     public Conductor() {}
 
     // Constructor con parámetros
-    public Conductor(String nombre, String apellido, Date fechaNacimiento, String automovil) {
+    public Conductor(String nombre, String apellido,int edad, String automovil, TipoAutomovil tipoAutomovil, boolean estado) {
         this.nombre = nombre;
         this.apellido = apellido;
-        this.fechaNacimiento = fechaNacimiento;
-        this.automovil = automovil;
+        this.edad = edad;
+        this.automovil = automovil; 
+        this.tipoAutomovil = tipoAutomovil; 
+        this.estado = estado;// siempre inicia activo
     }
 
     // Getters y Setters
@@ -56,12 +61,12 @@ public class Conductor {
         this.apellido = apellido;
     }
 
-    public Date getFechaNacimiento() {
-        return fechaNacimiento;
+    public int getEdad() {
+        return edad;
     }
 
-    public void setFechaNacimiento(Date fechaNacimiento) {
-        this.fechaNacimiento = fechaNacimiento;
+    public void setEdad(int edad) {
+        this.edad= edad;
     }
 
     public String getAutomovil() {
@@ -71,5 +76,30 @@ public class Conductor {
     public void setAutomovil(String automovil) {
         this.automovil = automovil;
     }
+
+    public TipoAutomovil getTipoAutomovil() {
+        return tipoAutomovil;
+    }
+
+    public void setTipoAutomovil(TipoAutomovil tipoAutomovil) {
+        this.tipoAutomovil = tipoAutomovil;
+    }
+
+    public Viaje getViaje() {
+        return viaje;
+    }
+
+    public void setViaje(Viaje viaje) {
+        this.viaje = viaje;
+    }
+ 
+    public boolean isEstado() {
+        return estado;
+    }
+
+    public void setEstado(boolean apellido) {
+        this.estado = estado;
+    }
+
 
     
